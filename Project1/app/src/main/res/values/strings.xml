@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name" translatable="false">MyGallery</string>
+
+    <string-array name="programming_languages">
+        <item>Mountain</item>
+        <item>KHTN</item>
+        <item>DHT11</item>
+        <item>K1</item>
+        <item>K2</item>
+        <item>K3</item>
+        <item>K4</item>
+        <item>K5</item>
+    </string-array>
+
+    <string-array name="description">
+        <item>This is a random description.</item>
+        <item>This is a random description.</item>
+        <item>This is a random description.</item>
+    </string-array>
+</resources>
