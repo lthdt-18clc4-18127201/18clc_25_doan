@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">MyGallery</string>
+    <string name="app_name" translatable="false">NewGallery</string>
 
     <string-array name="programming_languages">
         <item>Mountain</item>

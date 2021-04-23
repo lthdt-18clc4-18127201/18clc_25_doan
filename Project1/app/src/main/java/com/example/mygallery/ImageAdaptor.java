@@ -25,8 +25,6 @@ public class ImageAdaptor extends BaseAdapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder
-    @Override
     public int getCount() {
         return mThumbIds.length;
     }
