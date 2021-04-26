@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 public class FullScreenImg extends AppCompatActivity {
 
     ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,8 +21,9 @@ public class FullScreenImg extends AppCompatActivity {
 
         Intent i = getIntent();
         int position = i.getExtras().getInt("id");
-        ImageAdaptor imageAdaptor = new ImageAdaptor(this);
-        imageView.setImageResource(imageAdaptor.mThumbIds[position]);
+        ArrayList<String> List = (ArrayList<String>) getIntent().getSerializableExtra("list");
+        ImageAdaptor imageAdaptor = new ImageAdaptor(this, List);
+        imageView.setImageResource(Integer.parseInt(imageAdaptor.mThumbIds.get(position)));
 
     }
 }

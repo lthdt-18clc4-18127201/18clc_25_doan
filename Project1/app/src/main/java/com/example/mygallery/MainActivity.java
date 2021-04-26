@@ -20,6 +20,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,15 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         gridView = findViewById(R.id.mainView);
-        gridView.setAdapter(new ImageAdaptor(this));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), FullScreenImg.class);
-                intent.putExtra("id",position);
-                startActivity(intent);
-            }
-        });
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_READ_PERMISSION_CODE);
         }else{
@@ -58,12 +50,15 @@ public class MainActivity extends AppCompatActivity {
     private void loadImages(){
 
         images = ImageGallery.listofallImages(this);
-        imageAdaptor = new ImageAdaptor(this, images, new ImageAdaptor.PhotoListener() {
+        images.addAll(ImageGallery.listofallVideo(this));
+
+        gridView.setAdapter(new ImageAdaptor(this, images));
+        Intent intent = new Intent(getApplicationContext(), FullScreenImg.class);
+        intent.putExtra("list", (Serializable) images);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){;
             @Override
-            public void onPhotoClick(String path) {
-                Toast.makeText(MainActivity.this, ""+path, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), FullScreen.class);
-                intent.putExtra("id",path);
+            public void onItemClick(AdapterView<?>parent, View view, int position, long id) {
+                intent.putExtra("id",position);
                 startActivity(intent);
             }
         });

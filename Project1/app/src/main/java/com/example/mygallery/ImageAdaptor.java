@@ -13,25 +13,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ImageAdaptor extends BaseAdapter {
-    public int[] mThumbIds = {R.drawable.mountain, R.drawable.khtn,
+    /*public int[] mThumbIds = {R.drawable.mountain, R.drawable.khtn,
             R.drawable.download, R.drawable.i1, R.drawable.i2,
             R.drawable.i3, R.drawable.i4, R.drawable.i5, R.drawable.bf4, R.drawable.bouken, R.drawable.scene,
-            R.drawable.wows1, R.drawable.wows2, R.drawable.mhw1, R.drawable.mhw2 , R.drawable.wows3};
+            R.drawable.wows1, R.drawable.wows2, R.drawable.mhw1, R.drawable.mhw2 , R.drawable.wows3};*/
     private Context mContext;
-
-    public ImageAdaptor(Context mContext) {
-        //this.mThumbIds = mThumbIds;
+    protected List<String> mThumbIds;
+    public ImageAdaptor(Context mContext, List<String> mThumbIds) {
+        this.mThumbIds = mThumbIds;
         this.mContext = mContext;
     }
 
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return mThumbIds.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mThumbIds[position];
+        return mThumbIds.get(position);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ImageAdaptor extends BaseAdapter {
 
         if(imageView == null){
             imageView = new ImageView(mContext);
-            imageView.setImageResource(mThumbIds[position]);
+            imageView.setImageResource(Integer.parseInt(mThumbIds.get(position)));
             imageView.setLayoutParams(new GridView.LayoutParams(350,450));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
