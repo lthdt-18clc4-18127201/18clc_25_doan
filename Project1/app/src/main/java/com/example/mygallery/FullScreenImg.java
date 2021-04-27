@@ -2,6 +2,7 @@ package com.example.mygallery;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,27 +31,13 @@ public class FullScreenImg extends AppCompatActivity {
         Intent i = getIntent();
         String position = i.getExtras().getString("id");
 
-        if ( position.toLowerCase().endsWith(".jpg")){
+        if ( position.toLowerCase().endsWith(".jpg") || position.toLowerCase().endsWith(".png") || position.toLowerCase().endsWith(".jpeg")) {
             videoView.setVisibility(View.GONE);
             ArrayList<String> List = (ArrayList<String>) getIntent().getSerializableExtra("list");
             Glide.with(this)
                     .load(position)
                     .into(imageView);
-        }else if (position.toLowerCase().endsWith(".mp4") ) {
-            if (mediaControls == null) {
-                imageView.setVisibility(View.GONE);
-                // create an object of media controller class
-                mediaControls = new MediaController(this);
-                mediaControls.setAnchorView(videoView);
-
-                // set the media controller for video view
-                videoView.setMediaController(mediaControls);
-                // set the uri for the video view
-                videoView.setVideoURI(Uri.parse(position));
-                // start a video
-                videoView.start();
-            }
-        }else if (position.toLowerCase().endsWith(".3gp") ) {
+        }else if (position.toLowerCase().endsWith(".mp4") || position.toLowerCase().endsWith(".3gp")) {
             if (mediaControls == null) {
                 imageView.setVisibility(View.GONE);
                 // create an object of media controller class
@@ -65,9 +52,5 @@ public class FullScreenImg extends AppCompatActivity {
                 videoView.start();
             }
         }
-    }
-    public static boolean isImageFile(String path) {
-        String mimeType = URLConnection.guessContentTypeFromName(path);
-        return mimeType != null && mimeType.startsWith("image");
     }
 }
