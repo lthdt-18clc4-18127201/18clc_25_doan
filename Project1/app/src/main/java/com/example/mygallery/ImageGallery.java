@@ -7,7 +7,7 @@ import android.provider.MediaStore;
 
 import java.util.ArrayList;
 
-public class ImageGallery {
+public class    ImageGallery {
     public static ArrayList<String> listofallVideo(Context context){
         Uri uri;
         Cursor cursor;

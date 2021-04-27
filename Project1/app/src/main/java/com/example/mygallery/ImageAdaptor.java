@@ -3,25 +3,30 @@ package com.example.mygallery;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import com.bumptech.glide.Glide;
 import android.widget.ListAdapter;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ImageAdaptor extends BaseAdapter {
-    /*public int[] mThumbIds = {R.drawable.mountain, R.drawable.khtn,
-            R.drawable.download, R.drawable.i1, R.drawable.i2,
-            R.drawable.i3, R.drawable.i4, R.drawable.i5, R.drawable.bf4, R.drawable.bouken, R.drawable.scene,
-            R.drawable.wows1, R.drawable.wows2, R.drawable.mhw1, R.drawable.mhw2 , R.drawable.wows3};*/
     private Context mContext;
     protected List<String> mThumbIds;
-    public ImageAdaptor(Context mContext, List<String> mThumbIds) {
+    protected PhotoListener photoListener;
+    public ImageAdaptor(Context mContext, List<String> mThumbIds, PhotoListener photoListener) {
         this.mThumbIds = mThumbIds;
         this.mContext = mContext;
+        this.photoListener = photoListener;
     }
 
     @Override
@@ -40,16 +45,28 @@ public class ImageAdaptor extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)  {
         ImageView imageView = (ImageView) convertView;
 
         if(imageView == null){
+            String image = mThumbIds.get(position);
             imageView = new ImageView(mContext);
-            imageView.setImageResource(Integer.parseInt(mThumbIds.get(position)));
+            Glide.with(mContext)
+                    .load(mThumbIds.get(position))
+                    .into(imageView);
             imageView.setLayoutParams(new GridView.LayoutParams(350,450));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    photoListener.onPhotoClick(image);
+                }
+            });
         }
 
         return imageView;
+    }
+    public interface PhotoListener{
+        void onPhotoClick(String path);
     }
 }

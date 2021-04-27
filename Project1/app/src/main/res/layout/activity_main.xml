@@ -7,7 +7,6 @@
     tools:context=".MainActivity"
     android:padding="2dp"
     android:orientation="vertical">
-
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
@@ -20,12 +19,17 @@
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:textStyle="bold" />
-        >
     </RelativeLayout>
 
-    <androidx.gridlayout.widget.GridLayout
+    <GridView
         android:id="@+id/mainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:numColumns="3"
+        android:columnWidth="90dp"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth"
         />
 </LinearLayout>
