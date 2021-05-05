@@ -33,10 +33,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<Integer> impImg =  new ArrayList<>(Arrays.asList(R.drawable.mountain, R.drawable.khtn,
-            R.drawable.download, R.drawable.i1, R.drawable.i2,
-            R.drawable.i3, R.drawable.i4, R.drawable.i5, R.drawable.bf4, R.drawable.bouken, R.drawable.scene,
-            R.drawable.wows1, R.drawable.wows2, R.drawable.mhw1, R.drawable.mhw2 , R.drawable.wows3));
+
     GridView gridView;
     ImageAdaptor imageAdaptor;
     TextView gallery_number;
