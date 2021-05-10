@@ -21,6 +21,17 @@
         android:requestLegacyExternalStorage="true"
         >
         <activity android:name=".FullScreenImg"></activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!-- ressource file to create -->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths">
+            </meta-data>
+        </provider>
         <activity
             android:name=".Image_detail"
             android:label="Details"

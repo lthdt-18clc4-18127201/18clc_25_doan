@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +16,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +29,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -62,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
                 else
                 {
                     Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+                    File filepath = Environment.getExternalStorageDirectory();
+                    File imagesFolder = new File(filepath.getAbsolutePath()+ "MyAppImages");
+                    imagesFolder.mkdirs();
+                    File image = new File(imagesFolder, System.currentTimeMillis()+".jpg");
+                    Uri uriSavedImage=FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID, image);
+                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+
                     startActivityForResult(cameraIntent, CAMERA_REQUEST);
                 }
             }
@@ -118,6 +130,14 @@ public class MainActivity extends AppCompatActivity {
             {
                 Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+                File filepath = Environment.getExternalStorageDirectory();
+                File imagesFolder = new File(filepath.getAbsolutePath()+ "MyAppImages");
+                imagesFolder.mkdirs();
+                File image = new File(imagesFolder, System.currentTimeMillis()+".jpg");
+                Uri uriSavedImage=FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID, image);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
             else
