@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
+    Button AlbumButton, SlideShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        AlbumButton = findViewById(R.id.AlbumSelect);
+        AlbumButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+            }
+        });
 
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_READ_PERMISSION_CODE);
