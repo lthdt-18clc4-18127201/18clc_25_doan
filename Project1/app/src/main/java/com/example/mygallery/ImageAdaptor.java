@@ -46,11 +46,8 @@ public class ImageAdaptor extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)  {
-        ImageView imageView = (ImageView) convertView;
-
-        if(imageView == null){
             String image = mThumbIds.get(position);
-            imageView = new ImageView(mContext);
+            ImageView imageView = new ImageView(mContext);
             Glide.with(mContext)
                     .load(mThumbIds.get(position))
                     .into(imageView);
@@ -62,7 +59,6 @@ public class ImageAdaptor extends BaseAdapter {
                     photoListener.onPhotoClick(image);
                 }
             });
-        }
         return imageView;
     }
     public interface PhotoListener{

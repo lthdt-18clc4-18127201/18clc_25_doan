@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
         images = ImageGallery.listofallImages(this);
         images.addAll(ImageGallery.listofallVideo(this));
-        Toast.makeText(MainActivity.this, ""+images, Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(getApplicationContext(), FullScreenImg.class);
         intent.putExtra("list", (Serializable) images);
