@@ -1,15 +1,11 @@
 package com.example.mygallery;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -56,22 +52,5 @@ public class FullScreenImg extends AppCompatActivity {
                 videoView.start();
             }
         }
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_item,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.i_detail: {
-                Intent intent = new Intent(this,Detail. class);
-                startActivity(intent);
-            }
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
