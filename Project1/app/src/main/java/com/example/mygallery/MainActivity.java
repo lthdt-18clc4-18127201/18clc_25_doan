@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     GridView gridView;
     ImageAdaptor imageAdaptor;
     static TextView gallery_number;
-    static List<String> images;
+    ArrayList<String> images;
     private static final int MY_READ_PERMISSION_CODE = 101;
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
@@ -105,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
             loadImages();
         }
 
-
     }
 
 
     private void loadImages(){
 
+        if(images ==null){
         images = ImageGallery.listofallImages(this);
-        images.addAll(ImageGallery.listofallVideo(this));
+        images.addAll(ImageGallery.listofallVideo(this));}
 
 
         Intent intent = new Intent(getApplicationContext(), FullScreenImg.class);

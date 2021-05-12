@@ -10,14 +10,14 @@
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="70dp"
         android:paddingEnd="@dimen/_1sdp"
-        app:layout_constraintTop_toTopOf="parent">
-
+        app:layout_constraintTop_toTopOf="parent"
+        >
         <TextView
             android:id="@+id/gallery_number"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textSize="18dp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -25,13 +25,14 @@
     <GridView
         android:id="@+id/mainView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_486sdp"
+        android:layout_height="match_parent"
         android:columnWidth="90dp"
         android:gravity="center"
         android:horizontalSpacing="10dp"
         android:numColumns="3"
-        android:paddingEnd="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_12sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:paddingStart="@dimen/_5sdp"
         android:stretchMode="columnWidth"
         android:verticalSpacing="10dp"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
@@ -68,6 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Album"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/mainView"
         app:layout_constraintEnd_toStartOf="@+id/takePhotoButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Slideshow"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/mainView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/takePhotoButton"
