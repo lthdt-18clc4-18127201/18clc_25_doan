@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     GridView gridView;
     ImageAdaptor imageAdaptor;
-    TextView gallery_number;
-    List<String> images;
+    static TextView gallery_number;
+    static List<String> images;
     private static final int MY_READ_PERMISSION_CODE = 101;
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
@@ -84,7 +84,18 @@ public class MainActivity extends AppCompatActivity {
         AlbumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
+
+                Intent intent = new Intent(getApplicationContext(), Album.class);
+                startActivity(intent);
+            }
+        });
+
+        SlideShow = findViewById(R.id.SlideShow);
+        SlideShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SlideShow.class);
+                startActivity(intent);
             }
         });
 
