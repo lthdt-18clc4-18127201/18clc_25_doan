@@ -63,7 +63,6 @@ public class ImageAdaptor extends BaseAdapter {
                 }
             });
         }
-
         return imageView;
     }
     public interface PhotoListener{

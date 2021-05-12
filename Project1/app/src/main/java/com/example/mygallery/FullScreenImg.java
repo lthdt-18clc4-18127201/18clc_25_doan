@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FullScreenImg extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class FullScreenImg extends AppCompatActivity {
 
         if ( position.toLowerCase().endsWith(".jpg") || position.toLowerCase().endsWith(".png") || position.toLowerCase().endsWith(".jpeg")) {
             videoView.setVisibility(View.GONE);
-            ArrayList<String> List = (ArrayList<String>) getIntent().getSerializableExtra("list");
+            List<String> List = (List<String>) getIntent().getSerializableExtra("list");
             Glide.with(this)
                     .load(position)
                     .into(imageView);
@@ -69,6 +70,9 @@ public class FullScreenImg extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.i_detail: {
                 Intent intent = new Intent(this,Detail. class);
+                Intent i = getIntent();
+                String position = i.getExtras().getString("id");
+                intent.putExtra("id",position);
                 startActivity(intent);
             }
         }

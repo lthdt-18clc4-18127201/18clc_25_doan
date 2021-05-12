@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     GridView gridView;
     ImageAdaptor imageAdaptor;
     static TextView gallery_number;
-    ArrayList<String> images;
+    List<String> images;
     private static final int MY_READ_PERMISSION_CODE = 101;
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
@@ -55,7 +55,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         gallery_number = findViewById(R.id.gallery_number);
         gridView = findViewById(R.id.mainView);
-
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_READ_PERMISSION_CODE);
+        }else{
+            loadImages();
+        }
         ImageView imageTakePhoto =findViewById(R.id.takePhotoButton);
         imageTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,21 +103,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_READ_PERMISSION_CODE);
-        }else{
-            loadImages();
-        }
-
     }
 
 
     private void loadImages(){
 
-        if(images ==null){
         images = ImageGallery.listofallImages(this);
-        images.addAll(ImageGallery.listofallVideo(this));}
-
+        images.addAll(ImageGallery.listofallVideo(this));
+        Toast.makeText(MainActivity.this, ""+images, Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(getApplicationContext(), FullScreenImg.class);
         intent.putExtra("list", (Serializable) images);
@@ -170,8 +167,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(imageBitmap);
         }
     }
 
