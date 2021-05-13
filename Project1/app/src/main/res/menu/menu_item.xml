@@ -6,4 +6,8 @@
         android:title="Details"
         android:id="@+id/i_detail"
         />
+    <item
+        android:title="Set as Wallpaper"
+        android:id="@+id/i_wallpaper"
+        />
 </menu>

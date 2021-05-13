@@ -80,6 +80,18 @@ public class FullScreenImg extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+        switch (item.getItemId()) {
+            case R.id.i_wallpaper: {
+                Intent intent = new Intent(this,Wallpaper.class);
+                Intent i = getIntent();
+                String position = i.getExtras().getString("id");
+                intent.putExtra("id",position);
+
+                Toast.makeText(this, ""+position, Toast.LENGTH_SHORT).show();
+
+                startActivity(intent);
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 }
