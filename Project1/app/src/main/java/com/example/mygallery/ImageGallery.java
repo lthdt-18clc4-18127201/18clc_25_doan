@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class    ImageGallery {
-    public static ArrayList<String> listofallVideo(Context context){
+    public static List<String> listofallVideo(Context context){
         Uri uri;
         Cursor cursor;
         int column_index_data, column_index_folder_name;
-        ArrayList<String> listofallVideo = new ArrayList<>();
+        List<String> listofallVideo = new ArrayList<>();
         String absolutePathofVideo;
 
         uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
@@ -32,11 +32,11 @@ public class    ImageGallery {
         }
         return listofallVideo;
     }
-    public static ArrayList<String> listofallImages(Context context){
+    public static List<String> listofallImages(Context context){
         Uri uri;
         Cursor cursor;
         int column_index_data, column_index_folder_name;
-        ArrayList<String> listofallImages = new ArrayList<>();
+        List<String> listofallImages = new ArrayList<>();
         String absolutePathofImages;
 
         uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
