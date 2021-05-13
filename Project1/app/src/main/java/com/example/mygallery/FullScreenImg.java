@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,20 +28,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FullScreenImg extends AppCompatActivity {
-    
+
+    ImageView imageView;
+    VideoView videoView;
+    MediaController mediaControls;
+    Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_img);
-        ImageView imageView;
-        VideoView videoView;
-        MediaController mediaControls = null;
+
         imageView = findViewById(R.id.imageView);
         videoView = findViewById(R.id.videoView);
         Intent i = getIntent();
         String position = i.getExtras().getString("id");
 
-        if ( position.toLowerCase().endsWith(".jpg") || position.toLowerCase().endsWith(".png") || position.toLowerCase().endsWith(".jpeg")) {
+        String action = i.getAction();
+        String type = i.getType();
+
+
+        if (Intent.ACTION_VIEW.equals(action) && type != null) {
+            if (type.startsWith("image/")) {
+                videoView.setVisibility(View.GONE);
+                imageUri = i.getData();//cái này là uri khi m mở default //get intent từ thư mục hệ thống
+                Glide.with(this)
+                        .load(imageUri)
+                        .into(imageView);
+            }
+        }else if ( position.toLowerCase().endsWith(".jpg") || position.toLowerCase().endsWith(".png") || position.toLowerCase().endsWith(".jpeg")) {
             videoView.setVisibility(View.GONE);
             List<String> List = (List<String>) getIntent().getSerializableExtra("list");
             Glide.with(this)
@@ -83,7 +98,6 @@ public class FullScreenImg extends AppCompatActivity {
         }
         switch (item.getItemId()) {
             case R.id.i_wallpaper: {
-                ImageView imageView = null;
                 Intent i = getIntent();
                 String position = i.getExtras().getString("id");
                 Glide.with(this)
@@ -101,7 +115,6 @@ public class FullScreenImg extends AppCompatActivity {
         }
         switch (item.getItemId()) {
             case R.id.i_edit: {
-                ImageView imageView = null;
                 Intent i = getIntent();
                 String position = i.getExtras().getString("id");
                 Glide.with(this)
