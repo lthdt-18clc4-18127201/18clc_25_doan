@@ -27,15 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FullScreenImg extends AppCompatActivity {
-
-    ImageView imageView;
-    VideoView videoView;
-    MediaController mediaControls;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_img);
-
+        ImageView imageView;
+        VideoView videoView;
+        MediaController mediaControls = null;
         imageView = findViewById(R.id.imageView);
         videoView = findViewById(R.id.videoView);
         Intent i = getIntent();
@@ -74,18 +73,17 @@ public class FullScreenImg extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.i_detail: {
-                Intent intent = new Intent(this,Image_detail. class);
                 Intent i = getIntent();
                 String position = i.getExtras().getString("id");
-                intent.putExtra("id",position);
-
                 Toast.makeText(this, ""+position, Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(this,Image_detail. class);
+                intent.putExtra("id",position);
                 startActivity(intent);
             }
         }
         switch (item.getItemId()) {
             case R.id.i_wallpaper: {
+                ImageView imageView = null;
                 Intent i = getIntent();
                 String position = i.getExtras().getString("id");
                 Glide.with(this)
@@ -99,6 +97,16 @@ public class FullScreenImg extends AppCompatActivity {
                 } catch (IOException e) {
                     Toast.makeText(this, "Setting WallPaper Failed!!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        }
+        switch (item.getItemId()) {
+            case R.id.i_edit: {
+                ImageView imageView = null;
+                Intent i = getIntent();
+                String position = i.getExtras().getString("id");
+                Glide.with(this)
+                        .load(position)
+                        .into(imageView);
             }
         }
         return super.onOptionsItemSelected(item);

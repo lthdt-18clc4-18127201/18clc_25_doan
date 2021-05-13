@@ -8,15 +8,17 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.io.File;
+
 public class Image_detail extends AppCompatActivity {
-    TextView ID, res, size;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_detail);
+        TextView ID, res, size;
         Intent i = getIntent();
         String position = i.getExtras().getString("id");
-        ID.findViewById(R.id.i_detail);
+        ID = findViewById(R.id.i_detail);
         ID.setText(position);
         String pickedImagePath = position;
         BitmapFactory.Options bitMapOption=new BitmapFactory.Options();
@@ -24,7 +26,12 @@ public class Image_detail extends AppCompatActivity {
         BitmapFactory.decodeFile(pickedImagePath, bitMapOption);
         int imageWidth=bitMapOption.outWidth;
         int imageHeight=bitMapOption.outHeight;
-        res.findViewById(R.id.i_res);
-        ID.setText(imageWidth + "x" + imageHeight);
+        res = findViewById(R.id.i_res);
+        res.setText(imageWidth + "x" + imageHeight);
+        File file = new File(position);
+        long length = file.length();
+        length = length/1024;
+        size = findViewById(R.id.i_size);
+        size.setText(length + "KB");
     }
 }

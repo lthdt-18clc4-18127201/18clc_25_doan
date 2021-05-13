@@ -10,4 +10,8 @@
         android:title="Set as Wallpaper"
         android:id="@+id/i_wallpaper"
         />
+    <item
+        android:title="Edit"
+        android:id="@+id/i_edit"
+        />
 </menu>
