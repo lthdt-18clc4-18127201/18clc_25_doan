@@ -14,4 +14,16 @@
         android:title="Edit"
         android:id="@+id/i_edit"
         />
+    <item
+        android:title="Delete"
+        android:id="@+id/i_delete"
+        />
+    <item
+        android:title="Share"
+        android:id="@+id/i_Share"
+        />
+    <item
+        android:title="Copy"
+        android:id="@+id/i_copy"
+        />
 </menu>

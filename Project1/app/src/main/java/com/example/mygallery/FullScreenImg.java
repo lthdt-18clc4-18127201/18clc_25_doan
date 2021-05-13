@@ -2,15 +2,19 @@ package com.example.mygallery;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.app.WallpaperManager;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,10 +26,12 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class FullScreenImg extends AppCompatActivity {
 
@@ -33,6 +39,7 @@ public class FullScreenImg extends AppCompatActivity {
     VideoView videoView;
     MediaController mediaControls;
     Uri imageUri;
+    String key;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +101,7 @@ public class FullScreenImg extends AppCompatActivity {
                 Intent intent = new Intent(this,Image_detail. class);
                 intent.putExtra("id",position);
                 startActivity(intent);
-            }
+            }return true;
         }
         switch (item.getItemId()) {
             case R.id.i_wallpaper: {
@@ -111,17 +118,61 @@ public class FullScreenImg extends AppCompatActivity {
                 } catch (IOException e) {
                     Toast.makeText(this, "Setting WallPaper Failed!!", Toast.LENGTH_SHORT).show();
                 }
-            }
+            }return true;
         }
         switch (item.getItemId()) {
-            case R.id.i_edit: {
+            case R.id.i_delete:
                 Intent i = getIntent();
                 String position = i.getExtras().getString("id");
-                Glide.with(this)
-                        .load(position)
-                        .into(imageView);
-            }
+                File file = new File(position);
+                //  getContentResolver().delete(finalImageUri, null, null);
+                //  getApplicationContext().deleteFile(finalImageUri.getPath());
+                file.delete();
+                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" +  Environment.getExternalStorageDirectory())));
+                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("content://" +  Environment.getExternalStorageDirectory())));
+                try {
+                    TimeUnit.MILLISECONDS.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                finish();
+                return true;
+            case R.id.i_Share:
+                Intent shareIntent = new Intent();//share
+                shareIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                shareIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                shareIntent.setAction(Intent.ACTION_SEND);
+                Uri imageUri1 = FileProvider.getUriForFile(
+                        this,
+                        "com.example.mygallery", //(use your app signature + ".provider" )
+                        new File(key));
+
+                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri1);
+                shareIntent.setType("image/*");
+                grantUriPermission("android", imageUri1, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(shareIntent, "Share File"));
+                return true;
+            /*case R.id.i_edit:
+                Intent Intent = new Intent(getBaseContext(), img_edit.class);
+                Intent.putExtra("key2", imageUri.toString());
+                startActivityForResult(Intent, 0);
+                return true;
+            case R.id.i_copy:
+                // Gets a handle to the clipboard service.
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+
+                // Declares the Uri to paste to the clipboard
+                Uri copyUri = Uri.parse(CONTACTS + COPY_PATH + "/" + imageUri);
+                // Creates a new URI clip object. The system uses the anonymous getContentResolver() object to
+                // get MIME types from provider. The clip object's label is "URI", and its data is
+                // the Uri previously created.
+                ClipData clip = ClipData.newUri(getContentResolver(), "URI", copyUri);
+                // Set the clipboard's primary clip.
+                clipboard.setPrimaryClip(clip);
+                return true;*/
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }
