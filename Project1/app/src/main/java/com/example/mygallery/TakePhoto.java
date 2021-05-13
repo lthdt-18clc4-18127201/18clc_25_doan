@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.Objects;
 
 public class TakePhoto extends Activity {
     private String mCurrentPhotoPath;
@@ -35,10 +36,10 @@ public class TakePhoto extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Uri imageUri = FileProvider.getUriForFile(
-                this.getBaseContext(),
-                "com.example.album",
-                photoFile);
+        /*FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
+                BuildConfig.APPLICATION_ID + ".FileProvider", photoFile);*/
+        Uri imageUri = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
+                BuildConfig.APPLICATION_ID + ".FileProvider", photoFile);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(cameraIntent, 1);
     }

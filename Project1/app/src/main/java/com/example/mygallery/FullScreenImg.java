@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
@@ -69,10 +70,13 @@ public class FullScreenImg extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.i_detail: {
-                Intent intent = new Intent(this,Detail. class);
+                Intent intent = new Intent(this,Image_detail. class);
                 Intent i = getIntent();
                 String position = i.getExtras().getString("id");
                 intent.putExtra("id",position);
+
+                Toast.makeText(this, ""+position, Toast.LENGTH_SHORT).show();
+
                 startActivity(intent);
             }
         }

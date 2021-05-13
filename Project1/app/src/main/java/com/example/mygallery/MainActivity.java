@@ -136,16 +136,9 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
                 Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent cameraIntent = new Intent(getApplicationContext(),TakePhoto.class);
 
-                File filepath = Environment.getExternalStorageDirectory();
-                File imagesFolder = new File(filepath.getAbsolutePath()+ "MyAppImages");
-                imagesFolder.mkdirs();
-                File image = new File(imagesFolder, System.currentTimeMillis()+".jpg");
-                Uri uriSavedImage=FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID, image);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                startActivity(cameraIntent);
             }
             else
             {

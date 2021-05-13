@@ -21,11 +21,12 @@
         android:theme="@style/Theme.MyGallery"
         android:requestLegacyExternalStorage="true"
         >
-            <activity android:name=".FullScreenImg"></activity>
-            <activity android:name=".SlideShow"></activity>
+        <activity android:name=".FullScreenImg"></activity>
+        <activity android:name=".SlideShow"></activity>
+        <activity android:name=".TakePhoto"></activity>
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="${applicationId}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <!-- ressource file to create -->
