@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         imageAdaptor = new ImageAdaptor(this, images, new ImageAdaptor.PhotoListener() {
             @Override
             public void onPhotoClick(String path) {
-                Toast.makeText(MainActivity.this, ""+path, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, ""+path, Toast.LENGTH_SHORT).show();
                 intent.putExtra("id",path);
                 startActivity(intent);
             }

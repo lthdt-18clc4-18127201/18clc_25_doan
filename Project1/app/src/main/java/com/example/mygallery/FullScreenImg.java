@@ -3,8 +3,11 @@ package com.example.mygallery;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.WallpaperManager;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +21,7 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.IOException;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,14 +86,19 @@ public class FullScreenImg extends AppCompatActivity {
         }
         switch (item.getItemId()) {
             case R.id.i_wallpaper: {
-                Intent intent = new Intent(this,Wallpaper.class);
                 Intent i = getIntent();
                 String position = i.getExtras().getString("id");
-                intent.putExtra("id",position);
-
-                Toast.makeText(this, ""+position, Toast.LENGTH_SHORT).show();
-
-                startActivity(intent);
+                Glide.with(this)
+                        .load(position)
+                        .into(imageView);
+                Bitmap bmpImg = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                WallpaperManager wallManager = WallpaperManager.getInstance(getApplicationContext());
+                try {
+                    wallManager.setBitmap(bmpImg);
+                    Toast.makeText(this, "Wallpaper Set Successfully!!", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    Toast.makeText(this, "Setting WallPaper Failed!!", Toast.LENGTH_SHORT).show();
+                }
             }
         }
         return super.onOptionsItemSelected(item);

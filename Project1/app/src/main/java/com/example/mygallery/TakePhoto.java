@@ -38,8 +38,10 @@ public class TakePhoto extends Activity {
         }
         /*FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
                 BuildConfig.APPLICATION_ID + ".FileProvider", photoFile);*/
-        Uri imageUri = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
-                BuildConfig.APPLICATION_ID + ".FileProvider", photoFile);
+        Uri imageUri = FileProvider.getUriForFile(
+                this,
+                "com.example.mygallery.FileProvider",
+                photoFile);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(cameraIntent, 1);
     }
