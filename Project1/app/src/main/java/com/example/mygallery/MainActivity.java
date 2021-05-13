@@ -70,16 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
-                    File filepath = Environment.getExternalStorageDirectory();
-                    File imagesFolder = new File(filepath.getAbsolutePath()+ "MyAppImages");
-                    imagesFolder.mkdirs();
-                    File image = new File(imagesFolder, System.currentTimeMillis()+".jpg");
-                    Uri uriSavedImage=FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID, image);
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    Intent cameraIntent = new Intent(getApplicationContext(),TakePhoto.class);
+                    startActivity(cameraIntent);
                 }
             }
         });
@@ -159,16 +151,6 @@ public class MainActivity extends AppCompatActivity {
             {
                 Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
             }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
         }
     }
 
