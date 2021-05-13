@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class    ImageGallery {
-    public static List<String> listofallVideo(Context context){
+    public static ArrayList<String> listofallVideo(Context context){
         Uri uri;
         Cursor cursor;
         int column_index_data, column_index_folder_name;
-        List<String> listofallVideo = new ArrayList<>();
+        ArrayList<String> listofallVideo = new ArrayList<>();
         String absolutePathofVideo;
 
         uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
@@ -32,11 +32,11 @@ public class    ImageGallery {
         }
         return listofallVideo;
     }
-    public static List<String> listofallImages(Context context){
+    public static ArrayList<String> listofallImages(Context context){
         Uri uri;
         Cursor cursor;
         int column_index_data, column_index_folder_name;
-        List<String> listofallImages = new ArrayList<>();
+        ArrayList<String> listofallImages = new ArrayList<>();
         String absolutePathofImages;
 
         uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -45,7 +45,7 @@ public class    ImageGallery {
         cursor = context.getContentResolver().query(uri,projection,null, null, orderby+" DESC");
 
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        //column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
+        column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
 
         while (cursor.moveToNext()){
             absolutePathofImages = cursor.getString(column_index_data);
