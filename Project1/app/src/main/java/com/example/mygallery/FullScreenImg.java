@@ -105,7 +105,7 @@ public class FullScreenImg extends AppCompatActivity {
             case R.id.i_detail: {
                 Intent i = getIntent();
                 String position = i.getExtras().getString("id");
-                Toast.makeText(this, ""+position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, ""+position, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this,Image_detail. class);
                 intent.putExtra("id",position);
                 startActivity(intent);
