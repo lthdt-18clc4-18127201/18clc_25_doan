@@ -47,11 +47,11 @@ public class FullScreenImg extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_img);
-
+        String position = null;
         imageView = findViewById(R.id.imageView);
         videoView = findViewById(R.id.videoView);
         Intent i = getIntent();
-        String position = i.getExtras().getString("id");
+        position = i.getExtras().getString("id");
 
         String action = i.getAction();
         String type = i.getType();
@@ -60,7 +60,7 @@ public class FullScreenImg extends AppCompatActivity {
         if (Intent.ACTION_VIEW.equals(action) && type != null) {
             if (type.startsWith("image/")) {
                 videoView.setVisibility(View.GONE);
-                imageUri = i.getData();//cái này là uri khi m mở default //get intent từ thư mục hệ thống
+                imageUri = i.getData();
                 Glide.with(this)
                         .load(imageUri)
                         .into(imageView);

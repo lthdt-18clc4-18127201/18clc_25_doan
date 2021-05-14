@@ -36,8 +36,6 @@ public class TakePhoto extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()),
-                BuildConfig.APPLICATION_ID + ".FileProvider", photoFile);*/
         Uri imageUri = FileProvider.getUriForFile(
                 this,
                 "com.example.mygallery.FileProvider",
@@ -53,7 +51,6 @@ public class TakePhoto extends Activity {
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     private File createImageFile() throws IOException {
-        // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(
