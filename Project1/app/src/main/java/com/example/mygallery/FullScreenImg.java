@@ -133,16 +133,16 @@ public class FullScreenImg extends AppCompatActivity {
                 Intent i = getIntent();
                 String position = i.getExtras().getString("id");
                 File file = new File(position);
-                //  getContentResolver().delete(finalImageUri, null, null);
-                //  getApplicationContext().deleteFile(finalImageUri.getPath());
-                file.delete();
-                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" +  Environment.getExternalStorageDirectory())));
-                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("content://" +  Environment.getExternalStorageDirectory())));
+                Uri imageUri = FileProvider.getUriForFile(
+                        this,
+                        "com.example.mygallery.FileProvider",
+                        file);
                 try {
                     TimeUnit.MILLISECONDS.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                deleteFile(file.toString());
                 finish();
                 return true;
         }
@@ -186,17 +186,13 @@ public class FullScreenImg extends AppCompatActivity {
                 Glide.with(this)
                         .load(position)
                         .into(imageView);
-                // Gets a handle to the clipboard service.
+                Bitmap icon = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                File f = new File(position);
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
+                Uri copyUri = Uri.parse(CONTACTS + COPY_PATH + "/" + position);
 
-                // Declares the Uri to paste to the clipboard
-                Uri copyUri = Uri.parse(CONTACTS + COPY_PATH + "/" + imageUri);
-                // Creates a new URI clip object. The system uses the anonymous getContentResolver() object to
-                // get MIME types from provider. The clip object's label is "URI", and its data is
-                // the Uri previously created.
                 ClipData clip = ClipData.newUri(getContentResolver(), "URI", copyUri);
-                // Set the clipboard's primary clip.
                 clipboard.setPrimaryClip(clip);
                 return true;
             default:
