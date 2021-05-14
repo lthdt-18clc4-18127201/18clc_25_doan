@@ -8,6 +8,7 @@ import android.app.WallpaperManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,8 +29,11 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -140,27 +145,47 @@ public class FullScreenImg extends AppCompatActivity {
                 }
                 finish();
                 return true;
+        }
+        switch (item.getItemId()) {
             case R.id.i_Share:
-                Intent shareIntent = new Intent();//share
-                shareIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                shareIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                shareIntent.setAction(Intent.ACTION_SEND);
-                Uri imageUri1 = FileProvider.getUriForFile(
+                Intent i = getIntent();
+                String position = i.getExtras().getString("id");
+                Glide.with(this)
+                        .load(position)
+                        .into(imageView);
+                Bitmap icon = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("image/*");
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                File f = new File(position);
+                try {
+                    f.createNewFile();
+                    FileOutputStream fo = new FileOutputStream(f);
+                    fo.write(bytes.toByteArray());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Uri imageUri = FileProvider.getUriForFile(
                         this,
-                        "com.example.mygallery", //(use your app signature + ".provider" )
-                        new File(key));
-
-                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri1);
-                shareIntent.setType("image/*");
-                grantUriPermission("android", imageUri1, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                startActivity(Intent.createChooser(shareIntent, "Share File"));
+                        "com.example.mygallery.FileProvider",
+                        f);
+                share.putExtra(Intent.EXTRA_STREAM, imageUri);
+                this.grantUriPermission("android",imageUri,Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                startActivity(Intent.createChooser(share, "Share Image"));
                 return true;
             /*case R.id.i_edit:
                 Intent Intent = new Intent(getBaseContext(), img_edit.class);
                 Intent.putExtra("key2", imageUri.toString());
                 startActivityForResult(Intent, 0);
-                return true;*/
+                return true;*/}
+        switch (item.getItemId()) {
             case R.id.i_copy:
+                Intent i = getIntent();
+                String position = i.getExtras().getString("id");
+                Glide.with(this)
+                        .load(position)
+                        .into(imageView);
                 // Gets a handle to the clipboard service.
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
