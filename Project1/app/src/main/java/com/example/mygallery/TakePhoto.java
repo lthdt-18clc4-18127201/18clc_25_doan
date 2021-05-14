@@ -73,33 +73,11 @@ public class TakePhoto extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-
-        if(requestCode==1){
-            // Bundle e = intent.getExtras();
-
-            Bitmap e1 = null;
-            try {
-                e1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(mCurrentPhotoPath));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-
-            String b=new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String photoUriStr= MediaStore.Images.Media.insertImage(getContentResolver(),e1,"IMG_" + b ,null);
-
-            try {
-                InputStream in = null;
-                in = getContentResolver().openInputStream(Uri.parse(photoUriStr));
-                ExifInterface  exifInterface =new ExifInterface(in);
-                exifInterface.setAttribute(ExifInterface.TAG_DATETIME,"2013:06:21 00:00:07");
-                exifInterface.saveAttributes();
-                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" +  Environment.getExternalStorageDirectory())));
-                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("content://" +  Environment.getExternalStorageDirectory())));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            finish();
-
-        }}
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+        finish();
+        }
 }

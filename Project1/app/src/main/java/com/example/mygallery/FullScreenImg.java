@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.app.WallpaperManager;
+import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -35,6 +36,8 @@ import java.util.concurrent.TimeUnit;
 
 public class FullScreenImg extends AppCompatActivity {
 
+    private static final Object CONTACTS = "content://com.example.contacts";
+    private static final String COPY_PATH = "/copy";
     ImageView imageView;
     VideoView videoView;
     MediaController mediaControls;
@@ -156,7 +159,7 @@ public class FullScreenImg extends AppCompatActivity {
                 Intent Intent = new Intent(getBaseContext(), img_edit.class);
                 Intent.putExtra("key2", imageUri.toString());
                 startActivityForResult(Intent, 0);
-                return true;
+                return true;*/
             case R.id.i_copy:
                 // Gets a handle to the clipboard service.
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -170,7 +173,7 @@ public class FullScreenImg extends AppCompatActivity {
                 ClipData clip = ClipData.newUri(getContentResolver(), "URI", copyUri);
                 // Set the clipboard's primary clip.
                 clipboard.setPrimaryClip(clip);
-                return true;*/
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
