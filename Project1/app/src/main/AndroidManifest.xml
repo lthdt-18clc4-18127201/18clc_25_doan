@@ -51,7 +51,8 @@
             android:label="Details"
             android:parentActivityName=".MainActivity"
             />
-        <activity android:name=".Album" />
+        <activity android:name=".AlbumMain" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

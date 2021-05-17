@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplicationContext(), Album.class);
+                Intent intent = new Intent(getApplicationContext(), AlbumMain.class);
                 startActivity(intent);
             }
         });

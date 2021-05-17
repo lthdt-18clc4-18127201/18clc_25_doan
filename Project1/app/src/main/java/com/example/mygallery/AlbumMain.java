@@ -21,7 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
@@ -158,7 +158,7 @@ public class AlbumMain extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.i_add: {
@@ -168,4 +168,5 @@ public class AlbumMain extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-}}
+    }*/
+}
