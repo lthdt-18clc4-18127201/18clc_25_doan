@@ -10,7 +10,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class AlbumAdapter extends RecyclerView.Adapter {
-    public AlbumAdapter(Album album, List<Album> albumList) {
+
+
+    public AlbumAdapter(AlbumMain albumMain, List<Album> albumList) {
     }
 
     @NonNull
