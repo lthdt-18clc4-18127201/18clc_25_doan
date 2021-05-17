@@ -81,8 +81,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
-                case R.id.i_add:
-                    Toast.makeText(mContext,"Add new",Toast.LENGTH_SHORT).show();
+                case R.id.i_delete:
+                    Toast.makeText(mContext,"Deleted",Toast.LENGTH_SHORT).show();
                     return true;
                 default:
             }

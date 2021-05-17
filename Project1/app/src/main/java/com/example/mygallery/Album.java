@@ -1,9 +1,12 @@
 package com.example.mygallery;
 
+import java.util.List;
+
 public class Album {
     private String name;
     private int numOfItems;
     private int thumbnail;
+    private List<String> albumImages;
     public Album(String name, int numOfItems, int thumbnail) {
         this.name = name;
         this.numOfItems = numOfItems;

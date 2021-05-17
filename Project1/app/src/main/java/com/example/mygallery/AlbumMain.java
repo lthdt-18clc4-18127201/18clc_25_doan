@@ -41,8 +41,8 @@ public class AlbumMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        initCollapsingToolBar();
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //initCollapsingToolBar();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         albumList = new ArrayList<>();
@@ -56,20 +56,35 @@ public class AlbumMain extends AppCompatActivity {
 
         prepareAlbums();
 
-        try {
+        /*try {
             Glide.with(this).load(R.drawable.bf4).into((ImageView) findViewById(R.id.backdrop));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private void prepareAlbums() {
         Album a = new Album("Main Album", 13, R.drawable.bouken);
         albumList.add(a);
+        Album b = new Album("Album 1", 13, R.drawable.i1);
+        albumList.add(b);
+        Album c = new Album("Album 2", 13, R.drawable.i2);
+        albumList.add(c);
+        Album d = new Album("Album 3", 13, R.drawable.i3);
+        albumList.add(d);
+        Album e = new Album("Album 4", 13, R.drawable.i4);
+        albumList.add(e);
+        Album f = new Album("Album 5", 13, 0);
+        albumList.add(f);
+        Album g = new Album("Album 6", 13, R.drawable.mhw1);
+        albumList.add(g);
+        Album h = new Album("Album 7", 13, R.drawable.mhw2);
+        albumList.add(h);
+        //albumList.remove(b);
         albumAdapter.notifyDataSetChanged();
     }
 
-    private void initCollapsingToolBar() {
+    /*private void initCollapsingToolBar() {
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitle(" ");
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
@@ -91,7 +106,7 @@ public class AlbumMain extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration{
         private int spanCount;
@@ -158,15 +173,15 @@ public class AlbumMain extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.i_add: {
-                Intent intent = new Intent(this,AfterClickActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(this,AfterClickActivity.class);
+                //startActivity(intent);
             }return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }*/
+    }
 }
